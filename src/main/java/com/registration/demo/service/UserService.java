@@ -1,6 +1,6 @@
-package com.registration.demo.core.service;
+package com.registration.demo.service;
 
-import com.registration.demo.core.datamodel.User;
+import com.registration.demo.datamodel.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
