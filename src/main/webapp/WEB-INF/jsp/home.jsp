@@ -9,6 +9,8 @@
             <li class="list-group-item">Spring MVC</li>
             <li class="list-group-item">REST</li>
             <li class="list-group-item">JSP, JSTL, Bootstrap</li>
+            <li class="list-group-item">JSR-303</li>
+
         </ul>
     </div>
 </div>

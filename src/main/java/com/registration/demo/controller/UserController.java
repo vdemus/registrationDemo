@@ -1,6 +1,6 @@
 package com.registration.demo.controller;
 
-import com.registration.demo.datamodel.User;
+import com.registration.demo.datamodel.domain.User;
 import com.registration.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

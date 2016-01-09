@@ -11,6 +11,8 @@
   <!-- Bootstrap -->
   <link href="/public/lib/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
+  <link href="/public/css/styles.css" rel="stylesheet">
+
 
   <title>Up and running with Spring Framework quickly</title>
 </head>

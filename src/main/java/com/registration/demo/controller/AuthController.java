@@ -3,11 +3,14 @@ package com.registration.demo.controller;
 import com.registration.demo.datamodel.dto.RegistrationForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/auth")
@@ -22,8 +25,19 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute("registrationForm") RegistrationForm registrationForm) {
+    public String register(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm, BindingResult result) {
         LOGGER.debug(registrationForm.toString());
+
+        if (result.hasErrors()) {
+            LOGGER.debug("Registration form has errors");
+            return "register";
+        }
         return "redirect:/home";
     }
+
+//    @ExceptionHandler(Exception.class)
+//    public String handleValidationError() {
+//        LOGGER.debug("Registration form has errors");
+//        return "register";
+//    }
 }

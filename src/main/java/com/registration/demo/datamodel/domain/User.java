@@ -1,4 +1,4 @@
-package com.registration.demo.datamodel;
+package com.registration.demo.datamodel.domain;
 
 public class User {
 
