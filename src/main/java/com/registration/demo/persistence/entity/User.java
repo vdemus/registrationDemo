@@ -1,4 +1,4 @@
-package com.registration.demo.datamodel.entity;
+package com.registration.demo.persistence.entity;
 
 import javax.persistence.*;
 

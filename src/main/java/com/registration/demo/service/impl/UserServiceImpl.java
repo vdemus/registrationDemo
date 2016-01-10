@@ -1,7 +1,7 @@
 package com.registration.demo.service.impl;
 
 
-import com.registration.demo.datamodel.entity.User;
+import com.registration.demo.persistence.entity.User;
 import com.registration.demo.datamodel.dto.RegistrationForm;
 import com.registration.demo.persistence.repositories.UserRepository;
 import org.slf4j.Logger;
@@ -29,7 +29,5 @@ public class UserServiceImpl implements com.registration.demo.service.UserServic
                 registrationForm.getPassword());
 
         userRepository.save(user);
-
-
     }
 }

@@ -1,6 +1,6 @@
 package com.registration.demo.datamodel.dto;
 
-import com.registration.demo.datamodel.entity.User;
+import com.registration.demo.persistence.entity.User;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
