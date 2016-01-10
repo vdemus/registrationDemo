@@ -7,6 +7,7 @@
             <li class="list-group-item">Spring Boot</li>
             <li class="list-group-item">Spring DI</li>
             <li class="list-group-item">Spring MVC</li>
+            <li class="list-group-item">Spring Data, JPA</li>
             <li class="list-group-item">REST</li>
             <li class="list-group-item">JSP, JSTL, Bootstrap</li>
             <li class="list-group-item">JSR-303</li>

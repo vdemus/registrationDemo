@@ -1,5 +1,6 @@
-package com.registration.demo.mail;
+package com.registration.demo.service.impl;
 
+import com.registration.demo.service.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,9 @@ import javax.mail.internet.MimeMessage;
 
 @Component
 @Profile("prod")
-public class SmtpMailSender implements MailSender {
+public class SmtpMailServiceImpl implements MailService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SmtpMailSender.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SmtpMailServiceImpl.class);
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -26,7 +27,7 @@ public class SmtpMailSender implements MailSender {
 
     @Override
     public void send(String recipient, String subject, String body) throws MessagingException{
-        LOGGER.debug("SmtpMailSender");
+        LOGGER.debug("SmtpMailService");
         LOGGER.debug("Send email to {}", recipient);
         LOGGER.debug("subject:{}", subject);
         LOGGER.debug("body:{}", body);

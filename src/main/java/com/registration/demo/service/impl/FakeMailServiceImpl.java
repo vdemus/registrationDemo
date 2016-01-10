@@ -1,5 +1,6 @@
-package com.registration.demo.mail;
+package com.registration.demo.service.impl;
 
+import com.registration.demo.service.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
@@ -9,9 +10,9 @@ import javax.mail.MessagingException;
 
 @Component
 @Profile("dev")
-public class FakeMailSender implements MailSender {
+public class FakeMailServiceImpl implements MailService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FakeMailSender.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FakeMailServiceImpl.class);
 
     @Override
     public void send(String recipient, String subject, String body) throws MessagingException {

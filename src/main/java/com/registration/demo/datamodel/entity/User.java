@@ -1,18 +1,36 @@
-package com.registration.demo.datamodel.domain;
+package com.registration.demo.datamodel.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "USERS")
 public class User {
 
+    public static final int NAME_LENGTH_MAX = 100;
+    public static final int NAME_LENGTH_MIN = 1;
+    public static final int EMAIL_LENGTH_MAX = 250;
+    public static final int EMAIL_LENGTH_MIN = 5;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = NAME_LENGTH_MAX)
     private String name;
+
+    @Column(nullable = false, length = EMAIL_LENGTH_MAX)
     private String email;
+
+    @Column(nullable = false)
+    private String password;
 
     public User() {
     }
 
-    public User(Long id, String name, String email) {
-        this.id = id;
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
     public Long getId() {
@@ -39,6 +57,14 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,5 +84,14 @@ public class User {
         result = 31 * result + name.hashCode();
         result = 31 * result + email.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
