@@ -3,7 +3,9 @@ package com.registration.demo.persistence.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "USERS", indexes = {
+        @Index(columnList = "email", unique = true)
+})
 public class User {
 
     public static final int NAME_LENGTH_MAX = 100;
