@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +38,33 @@
         <ul class="nav navbar-nav">
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href=" <c:url value='/auth/register'/>"><span class="glyphicon glyphicon-list-alt"></span> Register</a> </li>
+          <sec:authorize access="isAnonymous()">
+            <li><a href=" <c:url value='/auth/register'/>"><span class="glyphicon glyphicon-list-alt"></span> Register</a> </li>
+            <li><a href=" <c:url value='/auth/login'/>"><span class="glyphicon glyphicon-log-in"></span> Login</a> </li>
+          </sec:authorize>
+
+          <sec:authorize access="isAuthenticated()">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-user"></span>
+                <sec:authentication property="principal.user.name" />  <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="/users/<sec:authentication property='principal.user.id' />"><%--<span class="glyphicon glyphicon-user"></span>--%> Profile</a></li>
+                <li><a href="/home">Project overview</a></li>
+                <li role="separator" class="divider"></li>
+                <li>
+                  <c:url var="logoutUrl" value="/logout" />
+                  <form:form	id="logoutForm" action="${logoutUrl}" method="post">
+                  </form:form>
+                  <a href="#" onclick="document.getElementById('logoutForm').submit()"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                </li>
+              </ul>
+            </li>
+
+          </sec:authorize>
+
+
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

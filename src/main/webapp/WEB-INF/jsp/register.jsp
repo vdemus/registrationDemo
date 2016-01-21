@@ -1,5 +1,5 @@
 <%@include file="includes/header.jsp"%>
-<div class="panel panel-default">
+<div class="panel panel-primary">
 
   <div class="panel-heading">
   <h2 class="panel-title">Please register</h2>

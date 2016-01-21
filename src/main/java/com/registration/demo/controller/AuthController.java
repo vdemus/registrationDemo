@@ -64,6 +64,6 @@ public class AuthController {
 
         ResponseUtils.setFlashAttributes(redirectAttributes, "success", "registrationSuccessful");
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 }
