@@ -3,7 +3,7 @@ package com.registration.demo.controller;
 import com.registration.demo.datamodel.dto.RegistrationForm;
 import com.registration.demo.persistence.entity.User;
 import com.registration.demo.service.UserService;
-import com.registration.demo.utils.ResponseUtils;
+import com.registration.demo.utils.ServerUtils;
 import com.registration.demo.validators.RegistrationFormValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +62,7 @@ public class AuthController {
 
         userService.register(user);
 
-        ResponseUtils.setFlashAttributes(redirectAttributes, "success", "registrationSuccessful");
+        ServerUtils.setFlashAttributes(redirectAttributes, "success", "registrationSuccessful");
 
         return "redirect:/";
     }

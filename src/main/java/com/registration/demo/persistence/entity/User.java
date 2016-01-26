@@ -1,6 +1,11 @@
 package com.registration.demo.persistence.entity;
 
+import com.registration.demo.utils.UserRole;
+
 import javax.persistence.*;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "USERS", indexes = {
@@ -12,6 +17,7 @@ public class User {
     public static final int NAME_LENGTH_MIN = 1;
     public static final int EMAIL_LENGTH_MAX = 250;
     public static final int EMAIL_LENGTH_MIN = 5;
+    public static final int VERIFICATION_CODE_LENGTH = 16;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +31,12 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<UserRole> roles = new HashSet<UserRole>();
+
+    @Column(length = VERIFICATION_CODE_LENGTH)
+    private String verificationCode;
 
     public User() {
     }
@@ -65,6 +77,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 
     @Override
