@@ -5,4 +5,6 @@ import com.registration.demo.persistence.entity.User;
 
 public interface UserService {
     void register(User user);
+    void verify(String verificationCode);
+    void resendConfirmationMail(long loggedInUserId);
 }

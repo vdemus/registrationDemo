@@ -1,12 +1,15 @@
 package com.registration.demo.controller;
 
 import com.registration.demo.service.UserService;
+import com.registration.demo.utils.ServerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RestController
+@Controller
 @RequestMapping("/users")
 public class UserController {
 
@@ -15,28 +18,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public List<User> getUsers() {
-//        return userService.getUsers();
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public User getUser(@PathVariable("id") Long id) {
-//        return userService.getUser(id);
-//    }
-//
-//    @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public boolean addUser(@RequestBody User user) {
-//        return userService.addUser(user);
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-//    public boolean updateUser(@PathVariable("id") Long id, @RequestBody User user) {
-//        return userService.updateUser(id, user);
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//    public void deleteUser(@PathVariable("id") Long id){
-//        userService.deleteUser(id);
-//    }
+    @RequestMapping(value = "/resend-confirmation-email", method = RequestMethod.GET)
+    public String resendConfirmationMail(RedirectAttributes redirectAttributes) {
+
+        long loggedInUserId = ServerUtils.getSessionUser().getId();
+
+        userService.resendConfirmationMail(loggedInUserId);
+
+        ServerUtils.setFlashAttributes(redirectAttributes, "success", "auth.confirmationMailIsSent");
+
+        return "redirect:/home";
+    }
+
+
 }

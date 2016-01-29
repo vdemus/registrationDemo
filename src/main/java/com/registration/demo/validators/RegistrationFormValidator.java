@@ -43,7 +43,7 @@ public class RegistrationFormValidator extends LocalValidatorFactoryBean {
         User user = userRepository.findByEmail(registrationForm.getEmail());
 
         if (user != null) {
-            errors.rejectValue("email", "emailNotUnique");
+            errors.rejectValue("email", "validation.message.emailNotUnique");
         }
     }
 

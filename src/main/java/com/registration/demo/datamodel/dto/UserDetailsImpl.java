@@ -1,6 +1,7 @@
 package com.registration.demo.datamodel.dto;
 
 import com.registration.demo.persistence.entity.User;
+import com.registration.demo.utils.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,8 +20,14 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        Collection<GrantedAuthority> grantedAuthorities = new HashSet<>(user.getRoles().size()+1);
+
+        for (UserRole role : user.getRoles()) {
+            grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
+        }
+
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
         return grantedAuthorities;
     }
 

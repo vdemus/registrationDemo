@@ -6,6 +6,7 @@ import com.registration.demo.persistence.entity.User;
 import com.registration.demo.persistence.repositories.UserRepository;
 import com.registration.demo.service.MailService;
 import com.registration.demo.service.UserService;
+import com.registration.demo.utils.ServerUtils;
 import com.registration.demo.utils.UserRole;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
@@ -61,6 +62,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void verify(String verificationCode) {
+        long loggedInUserId = ServerUtils.getSessionUser().getId();
+        User user = userRepository.findOne(loggedInUserId);
+
+        ServerUtils.validate(user.getRoles().contains(UserRole.UNVERIFIED), "validation.message.alreadyVerified");
+        ServerUtils.validate(user.getVerificationCode().equals(verificationCode), "validation.message.incorrectVerificationCode");
+
+        user.getRoles().remove(UserRole.UNVERIFIED);
+        user.setVerificationCode(null);
+
+        userRepository.save(user);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
 
@@ -69,5 +85,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
 
         return new UserDetailsImpl(user);
+    }
+
+    @Override
+    public void resendConfirmationMail(long loggedInUserId) {
+        User user = userRepository.findOne(loggedInUserId);
+
+        ServerUtils.validate(user.getRoles().contains(UserRole.UNVERIFIED), "validation.message.alreadyVerified");
+
+        String verificationCode = RandomStringUtils.randomAlphanumeric(User.VERIFICATION_CODE_LENGTH);
+        user.setVerificationCode(verificationCode);
+
+        userRepository.save(user);
+
+        try {
+            mailService.sendConfirmation(user.getEmail(), user.getName(), verificationCode);
+        } catch (MessagingException e) {
+            LOGGER.error("Error during sending confirmation email to user: {}\n{}",user.getEmail(), e );
+        }
     }
 }

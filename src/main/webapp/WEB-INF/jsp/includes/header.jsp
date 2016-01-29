@@ -61,14 +61,20 @@
                 </li>
               </ul>
             </li>
-
           </sec:authorize>
-
-
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
+
+  <sec:authorize access="hasRole('ROLE_UNVERIFIED')">
+    <div class="alert alert-warning alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <p><strong>Warning!</strong></p>
+      <p><spring:message code="auth.verificationIsNotCompleted"/></p>
+      <a href="/users/resend-confirmation-email" class="alert-link"><spring:message code="auth.newVerificationEmail"/></a>
+    </div>
+  </sec:authorize>
 
   <c:if test="${not empty flashMessage}">
     <div class="alert alert-${flashKind} alert-dismissable">

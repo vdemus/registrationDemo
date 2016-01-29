@@ -15,6 +15,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -62,8 +64,20 @@ public class AuthController {
 
         userService.register(user);
 
-        ServerUtils.setFlashAttributes(redirectAttributes, "success", "registrationSuccessful");
+        ServerUtils.setFlashAttributes(redirectAttributes, "success", "auth.registrationSuccessful");
 
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/{verificationCode}/verify")
+    public String verifyRegistration(@PathVariable("verificationCode") String verificationCode,
+                                     RedirectAttributes redirectAttributes,
+                                     HttpServletRequest request) throws ServletException{
+        userService.verify(verificationCode);
+
+        ServerUtils.setFlashAttributes(redirectAttributes, "success", "auth.verificationSuccessful");
+
+        request.logout();
         return "redirect:/";
     }
 }
