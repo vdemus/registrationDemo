@@ -104,4 +104,39 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             LOGGER.error("Error during sending confirmation email to user: {}\n{}",user.getEmail(), e );
         }
     }
+
+    @Override
+    public void restorePassword(String email) {
+        User user = userRepository.findByEmail(email);
+
+        ServerUtils.validate((user != null), "validation.message.emailIsNotRegistered");
+
+        String passwordRestoreCode = RandomStringUtils.randomAlphanumeric(User.VERIFICATION_CODE_LENGTH);
+
+        user.setPasswordRestoreCode(passwordRestoreCode);
+
+        userRepository.save(user);
+
+        try {
+            mailService.sendPasswordRestore(user.getEmail(), user.getName(), passwordRestoreCode);
+        } catch (MessagingException e) {
+            LOGGER.error("Error during sending restore password email to user: {}\n{}",user.getEmail(), e );
+        }
+
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void resetPassword(String passwordRestoreCode, String password) {
+        User user = userRepository.findByPasswordRestoreCode(passwordRestoreCode);
+
+        ServerUtils.validate((user != null), "validation.message.passwordRestoreCodeNotFound");
+
+        user.setPasswordRestoreCode(null);
+
+        String encodedPassword = passwordEncoder.encode(password);
+        user.setPassword(encodedPassword);
+
+        userRepository.save(user);
+    }
 }

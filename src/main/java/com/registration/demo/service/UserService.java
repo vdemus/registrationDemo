@@ -7,4 +7,6 @@ public interface UserService {
     void register(User user);
     void verify(String verificationCode);
     void resendConfirmationMail(long loggedInUserId);
+    void restorePassword(String email);
+    void resetPassword(String passwordRestoreCode, String password);
 }

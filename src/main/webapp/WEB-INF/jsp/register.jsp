@@ -29,7 +29,7 @@
         <form:label path="password">Password</form:label>
         <form:password path="password" class="form-control" placeholder="Password" />
         <form:errors path="password" cssClass="error"/>
-        <p class="help-block">Password have to be at least 6 characters long.</p>
+        <p class="help-block">Password length have to be between 6 and 30 characters long.</p>
       </div>
 
       <button type="submit" class="btn btn-primary">Register</button>

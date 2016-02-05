@@ -8,16 +8,16 @@ import javax.validation.constraints.Size;
 
 public class RegistrationForm {
     @NotNull
-    @Size(min = User.EMAIL_LENGTH_MIN, max = User.EMAIL_LENGTH_MAX)
-    @Pattern(regexp="[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}", message = "{emailPatternError}")
+    @Size(min = User.EMAIL_LENGTH_MIN, max = User.EMAIL_LENGTH_MAX, message = "{emailSizeError}")
+    @Pattern(regexp=User.EMAIL_PATTERN, message = "{emailPatternError}")
     private String email;
 
     @NotNull
-    @Size(min = User.NAME_LENGTH_MIN, max = User.NAME_LENGTH_MAX)
+    @Size(min = User.NAME_LENGTH_MIN, max = User.NAME_LENGTH_MAX, message = "{nameSizeError}")
     private String name;
 
     @NotNull
-    @Size(min = 6, max = 30, message = "{nameSizeError}")
+    @Size(min = User.PASSWORD_MIN_LENGTH, max = User.PASSWORD_MAX_LENGTH, message = "{passwordSizeError}")
     private String password;
 
     public RegistrationForm() {

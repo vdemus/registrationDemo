@@ -18,6 +18,9 @@ public class User {
     public static final int EMAIL_LENGTH_MAX = 250;
     public static final int EMAIL_LENGTH_MIN = 5;
     public static final int VERIFICATION_CODE_LENGTH = 16;
+    public static final int PASSWORD_MIN_LENGTH = 6;
+    public static final int PASSWORD_MAX_LENGTH = 30;
+    public static final String EMAIL_PATTERN = "[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +40,9 @@ public class User {
 
     @Column(length = VERIFICATION_CODE_LENGTH)
     private String verificationCode;
+
+    @Column(length = VERIFICATION_CODE_LENGTH)
+    private String passwordRestoreCode;
 
     public User() {
     }
@@ -93,6 +99,14 @@ public class User {
 
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
+    }
+
+    public String getPasswordRestoreCode() {
+        return passwordRestoreCode;
+    }
+
+    public void setPasswordRestoreCode(String passwordRestoreCode) {
+        this.passwordRestoreCode = passwordRestoreCode;
     }
 
     @Override

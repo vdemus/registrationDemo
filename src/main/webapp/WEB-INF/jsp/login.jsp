@@ -1,5 +1,5 @@
 <%@include file="includes/header.jsp"%>
-<div class="panel panel-primary">
+<div class="panel panel-default">
 
   <div class="panel-heading">
   <h2 class="panel-title">Please login</h2>
@@ -47,5 +47,10 @@
     </form:form>
 
   </div>
+
+  <div class="panel-footer">
+    <a href="/auth/restore-password"><spring:message code="auth.restorePassword.link"/></a>
+  </div>
+
 </div>
 <%@include file="includes/footer.jsp"%>

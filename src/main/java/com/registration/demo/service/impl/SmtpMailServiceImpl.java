@@ -44,25 +44,30 @@ public class SmtpMailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendConfirmation(String userEmail, String userName, String verificationCode) throws MessagingException {
-        LOGGER.debug("Send email to {}", userEmail);
+    public void sendConfirmation(String email, String userName, String verificationCode) throws MessagingException {
+        LOGGER.debug("Send email to {}", email);
         LOGGER.debug("userName:{}", userName);
         LOGGER.debug("verificationCode:{}", verificationCode);
 
-        MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-        helper.setTo(userEmail);
-        helper.setFrom(sender);
-
         String subject = ServerUtils.getMessageByKey("mail.verification.subject");
-        helper.setSubject(subject);
 
         String verificationUrl = ServerUtils.generateVerificationUrl(verificationCode);
         String mailBody = ServerUtils.getMessageByKey("mail.verification.body", userName, verificationUrl);
-        helper.setText(mailBody, true);
 
-        javaMailSender.send(message);
+        send(email, subject, mailBody);
+    }
 
+    @Override
+    public void sendPasswordRestore(String email, String userName, String passwordRestoreCode) throws MessagingException {
+        LOGGER.debug("Send email to {}", email);
+        LOGGER.debug("userName:{}", userName);
+        LOGGER.debug("passwordRestoreCode:{}", passwordRestoreCode);
+
+        String subject = ServerUtils.getMessageByKey("mail.restore.subject");
+
+        String passwordRestoreUrl = ServerUtils.generatePasswordRestoreUrl(passwordRestoreCode);
+        String mailBody = ServerUtils.getMessageByKey("mail.restore.body", userName, passwordRestoreUrl);
+
+        send(email, subject, mailBody);
     }
 }

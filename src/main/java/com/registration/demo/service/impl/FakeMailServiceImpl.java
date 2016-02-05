@@ -23,8 +23,8 @@ public class FakeMailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendConfirmation(String userEmail, String userName, String verificationCode) throws MessagingException {
-        LOGGER.debug("Send email to {}", userEmail);
+    public void sendConfirmation(String email, String userName, String verificationCode) throws MessagingException {
+        LOGGER.debug("Send email to {}", email);
         LOGGER.debug("userName:{}", userName);
         LOGGER.debug("verificationCode:{}", verificationCode);
 
@@ -36,5 +36,22 @@ public class FakeMailServiceImpl implements MailService {
 
         String mailBody = ServerUtils.getMessageByKey("mail.verification.body", userName, verificationUrl);
         LOGGER.debug("mailBody:{}", mailBody);
+    }
+
+    @Override
+    public void sendPasswordRestore(String email, String userName, String passwordRestoreCode) {
+        LOGGER.debug("Send email to {}", email);
+        LOGGER.debug("userName:{}", userName);
+        LOGGER.debug("passwordRestoreCode:{}", passwordRestoreCode);
+
+        String subject = ServerUtils.getMessageByKey("mail.restore.subject");
+        LOGGER.debug("subject:{}", subject);
+
+        String passwordRestoreUrl = ServerUtils.generatePasswordRestoreUrl(passwordRestoreCode);
+        LOGGER.debug("passwordRestoreUrl:{}", passwordRestoreUrl);
+
+        String mailBody = ServerUtils.getMessageByKey("mail.restore.body", userName, passwordRestoreUrl);
+        LOGGER.debug("mailBody:{}", mailBody);
+
     }
 }

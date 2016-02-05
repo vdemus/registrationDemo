@@ -46,6 +46,13 @@ public class ServerUtils {
         return verificationUrl.toString();
     }
 
+    public static String generatePasswordRestoreUrl(String passwordRestoreCode) {
+        StringBuilder passwordRestoreUrl = new StringBuilder(baseUrl);
+        passwordRestoreUrl.append("/auth/restore-password/").append(passwordRestoreCode);
+
+        return passwordRestoreUrl.toString();
+    }
+
     public static void validate(boolean validationCondition, String errorMessageKey, Object... args) {
         if (!validationCondition) {
             throw new RuntimeException(getMessageByKey(errorMessageKey, args));
@@ -67,5 +74,4 @@ public class ServerUtils {
 
         return null;
     }
-
 }

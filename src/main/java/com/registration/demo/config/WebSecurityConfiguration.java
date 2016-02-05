@@ -29,7 +29,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 "/welcome",
                 "/error",
                 "/auth/register",
-                "/auth/forgot-password",
+                "/auth/restore-password",
+                "/auth/restore-password/*",
                 "/auth/reset-password/*",
                 "/public/**").permitAll()
             .anyRequest().authenticated();
