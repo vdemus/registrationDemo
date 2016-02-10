@@ -135,8 +135,7 @@ public class AuthController {
     public String resetPassword(@PathVariable("passwordRestoreCode") String passwordRestoreCode,
                                 @ModelAttribute("resetPasswordForm") @Valid ResetPasswordForm resetPasswordForm,
                                 BindingResult result,
-                                RedirectAttributes redirectAttributes,
-                                HttpServletRequest request) throws ServletException {
+                                RedirectAttributes redirectAttributes) throws ServletException {
 
         if (result.hasErrors()) {
             LOGGER.debug("reset password form has errors");

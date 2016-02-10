@@ -1,5 +1,6 @@
 package com.registration.demo.persistence.entity;
 
+import com.registration.demo.utils.ServerUtils;
 import com.registration.demo.utils.UserRole;
 
 import javax.persistence.*;
@@ -107,6 +108,19 @@ public class User {
 
     public void setPasswordRestoreCode(String passwordRestoreCode) {
         this.passwordRestoreCode = passwordRestoreCode;
+    }
+
+    public boolean isAdmin() {
+        return getRoles().contains(UserRole.ADMIN);
+    }
+
+    public boolean isEditableInCurrentSession() {
+        User loggedInUser = ServerUtils.getSessionUser();
+
+        if (loggedInUser == null) return false;
+
+        return (loggedInUser.getId().equals(this.id)) || (loggedInUser.isAdmin());
+
     }
 
     @Override

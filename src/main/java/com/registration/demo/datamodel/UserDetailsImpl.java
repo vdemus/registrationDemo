@@ -1,4 +1,4 @@
-package com.registration.demo.datamodel.dto;
+package com.registration.demo.datamodel;
 
 import com.registration.demo.persistence.entity.User;
 import com.registration.demo.utils.UserRole;

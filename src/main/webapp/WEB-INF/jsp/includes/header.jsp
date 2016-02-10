@@ -48,7 +48,7 @@
                 <sec:authentication property="principal.user.name" />  <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="/users/<sec:authentication property='principal.user.id' />"><%--<span class="glyphicon glyphicon-user"></span>--%> Profile</a></li>
+                <li><a href="/users/<sec:authentication property='principal.user.id' />"> Profile</a></li>
                 <li><a href="/home">Project overview</a></li>
                 <li role="separator" class="divider"></li>
                 <li>

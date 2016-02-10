@@ -1,6 +1,6 @@
 package com.registration.demo.utils;
 
-import com.registration.demo.datamodel.dto.UserDetailsImpl;
+import com.registration.demo.datamodel.UserDetailsImpl;
 import com.registration.demo.persistence.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

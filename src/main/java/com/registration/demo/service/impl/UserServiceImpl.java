@@ -1,7 +1,7 @@
 package com.registration.demo.service.impl;
 
 
-import com.registration.demo.datamodel.dto.UserDetailsImpl;
+import com.registration.demo.datamodel.UserDetailsImpl;
 import com.registration.demo.persistence.entity.User;
 import com.registration.demo.persistence.repositories.UserRepository;
 import com.registration.demo.service.MailService;
@@ -138,5 +138,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setPassword(encodedPassword);
 
         userRepository.save(user);
+    }
+
+    @Override
+    public User getUserById(long userId) {
+        User foundUser = userRepository.findOne(userId);
+
+        if (!foundUser.isEditableInCurrentSession()){
+            foundUser.setEmail("Confedencial information");
+        }
+
+        return foundUser;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    public void updateUser(User user) {
+        User foundUser = userRepository.findOne(user.getId());
+
+        ServerUtils.validate((foundUser != null), "validation.message.passwordRestoreCodeNotFound", user.getId());
+
+        foundUser.setName(user.getName());
+
+        userRepository.save(foundUser);
     }
 }
