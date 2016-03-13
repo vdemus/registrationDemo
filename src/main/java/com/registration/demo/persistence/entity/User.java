@@ -114,15 +114,6 @@ public class User {
         return getRoles().contains(UserRole.ADMIN);
     }
 
-    public boolean isEditableInCurrentSession() {
-        User loggedInUser = ServerUtils.getSessionUser();
-
-        if (loggedInUser == null) return false;
-
-        return (loggedInUser.getId().equals(this.id)) || (loggedInUser.isAdmin());
-
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

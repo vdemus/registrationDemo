@@ -18,15 +18,13 @@
     </dl>
   </div>
 
-  <c:if test="${user.isEditableInCurrentSession()}">
-
+  <sec:authorize access="principal.user.id==${user.id} or hasRole('ROLE_ADMIN')">
     <div class="panel-footer">
       <a class="btn btn-default" href="/users/${user.id}/edit" role="button">Edit name</a>
-      <%--<a class="btn btn-default" href="/users/${user.id}/change-password" role="button">Change password</a>--%>
-      <%--<a class="btn btn-default" href="/users/${user.id}/change-email" role="button">Change email</a>--%>
+        <%--<a class="btn btn-default" href="/users/${user.id}/change-password" role="button">Change password</a>--%>
+        <%--<a class="btn btn-default" href="/users/${user.id}/change-email" role="button">Change email</a>--%>
     </div>
-
-  </c:if>
+  </sec:authorize>
 
 </div>
 

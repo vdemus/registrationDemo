@@ -74,4 +74,13 @@ public class ServerUtils {
 
         return null;
     }
+
+    public static boolean isUserEditableInCurrentSession(User user) {
+        User loggedInUser = getSessionUser();
+
+        if (loggedInUser == null) return false;
+
+        return (loggedInUser.getId().equals(user.getId())) || (loggedInUser.isAdmin());
+
+    }
 }

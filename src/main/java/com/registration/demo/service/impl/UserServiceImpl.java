@@ -144,7 +144,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User getUserById(long userId) {
         User foundUser = userRepository.findOne(userId);
 
-        if (!foundUser.isEditableInCurrentSession()){
+        if (!ServerUtils.isUserEditableInCurrentSession(foundUser)){
             foundUser.setEmail("Confedencial information");
         }
 
